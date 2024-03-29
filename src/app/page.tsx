@@ -1,6 +1,7 @@
 import { GithubIcon } from "lucide-react";
 import Link from "next/link";
 
+import { splitTags, TagsList } from "@/components/shared/TagsList";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,8 +14,6 @@ import {
 import { Room } from "@/db/schema";
 import { getRooms } from "@/services/rooms";
 
-import { db } from "../db";
-
 function RoomCard({ room }: { room: Room }) {
   return (
     <Card>
@@ -23,9 +22,10 @@ function RoomCard({ room }: { room: Room }) {
         <CardDescription>{room.description}</CardDescription>
       </CardHeader>
       <CardContent>
+        <TagsList tags={splitTags(room.tags)} />
         {room.githubRepository && (
           <Link
-            className="flex items-center gap-x-4"
+            className="flex items-center gap-x-4 mt-4"
             href={room.githubRepository}
             target="_blank"
             rel="noreferrer noopener"

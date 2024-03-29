@@ -22,7 +22,7 @@ import { CreateRoomAction } from "./actions";
 const formSchema = z.object({
   name: z.string().min(2).max(50),
   description: z.string().min(1).max(250),
-  language: z.string().min(1).max(50),
+  tags: z.string().min(1).max(50),
   githubRepository: z.string().min(1).max(50),
 });
 export default function CreateRoomForm() {
@@ -35,7 +35,7 @@ export default function CreateRoomForm() {
       name: "",
       description: "",
       githubRepository: "",
-      language: "",
+      tags: "",
     },
   });
 
@@ -85,15 +85,15 @@ export default function CreateRoomForm() {
         {/* Language Field */}
         <FormField
           control={form.control}
-          name="language"
+          name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Primary Programming Language</FormLabel>
+              <FormLabel>Tags</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="typescript, nextjs, tailwind" {...field} />
               </FormControl>
               <FormDescription>
-                Please choose your primary language.
+                List your programming languages,frameworks...
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -107,7 +107,10 @@ export default function CreateRoomForm() {
             <FormItem>
               <FormLabel>Github Repo URL</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input
+                  placeholder="https://github.com/medAzizRezgui/dev-video-rooms"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 Please put a link to the project you are working on.
