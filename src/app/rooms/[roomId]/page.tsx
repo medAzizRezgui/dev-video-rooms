@@ -1,7 +1,8 @@
 import { GithubIcon } from "lucide-react";
 import Link from "next/link";
 
-import { splitTags, TagsList } from "@/components/shared/TagsList";
+import { TagsList } from "@/components/shared/TagsList";
+import { splitTags } from "@/lib/utils";
 import { getRoom } from "@/services/rooms";
 
 import { DevRoomsVideo } from "./video-player";

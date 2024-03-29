@@ -2,7 +2,7 @@ import { GithubIcon } from "lucide-react";
 import Link from "next/link";
 
 import { SearchBar } from "@/components/pages/home/search-bar";
-import { splitTags, TagsList } from "@/components/shared/TagsList";
+import { TagsList } from "@/components/shared/TagsList";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Room } from "@/db/schema";
+import { splitTags } from "@/lib/utils";
 import { getRooms } from "@/services/rooms";
 
 function RoomCard({ room }: { room: Room }) {
