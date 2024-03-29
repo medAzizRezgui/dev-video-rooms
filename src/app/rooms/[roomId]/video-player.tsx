@@ -4,12 +4,14 @@ import "@stream-io/video-react-sdk/dist/css/styles.css";
 import {
   Call,
   CallControls,
+  CallParticipantsList,
   SpeakerLayout,
   StreamCall,
   StreamTheme,
   StreamVideo,
   StreamVideoClient,
 } from "@stream-io/video-react-sdk";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -20,6 +22,7 @@ import { generateTokenAction } from "./actions";
 const apiKey = process.env.NEXT_PUBLIC_GET_STREAM_API_KEY!;
 
 export function DevRoomsVideo({ room }: { room: Room }) {
+  const router = useRouter();
   const session = useSession();
   const [client, setClient] = useState<StreamVideoClient | null>(null);
   const [call, setCall] = useState<Call | null>(null);
@@ -30,6 +33,8 @@ export function DevRoomsVideo({ room }: { room: Room }) {
       apiKey,
       user: {
         id: userId,
+        name: session.data.user.name ?? undefined,
+        image: session.data.user.image ?? undefined,
       },
       tokenProvider: () => generateTokenAction(),
     });
@@ -39,7 +44,6 @@ export function DevRoomsVideo({ room }: { room: Room }) {
     call.join({ create: true });
     setCall(call);
     return () => {
-      call.leave();
       client.disconnectUser();
     };
   }, [session, room]);
@@ -51,7 +55,8 @@ export function DevRoomsVideo({ room }: { room: Room }) {
         <StreamCall call={call}>
           <StreamTheme>
             <SpeakerLayout />
-            <CallControls />
+            <CallControls onLeave={() => router.push("/")} />
+            <CallParticipantsList onClose={() => {}} />
           </StreamTheme>
         </StreamCall>
       </StreamVideo>

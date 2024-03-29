@@ -19,7 +19,6 @@ import { ModeToggle } from "../components/mode-toggle";
 
 function AccountDropdown() {
   const session = useSession();
-  const isLoggedIn = !!session.data;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,23 +35,24 @@ function AccountDropdown() {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {isLoggedIn ? (
-          <DropdownMenuItem onClick={() => signOut()}>
-            <LogOutIcon className="mr-2" />
-            Sign Out
-          </DropdownMenuItem>
-        ) : (
-          <DropdownMenuItem onClick={() => signIn("google")}>
-            <LogInIcon className="mr-2" />
-            Sign In
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem
+          onClick={() =>
+            signOut({
+              callbackUrl: "/",
+            })
+          }
+        >
+          <LogOutIcon className="mr-2" />
+          Sign Out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
 export function Header() {
+  const session = useSession();
+
   return (
     <header className="bg-gray-100 dark:bg-gray-900 py-2 container max-auto">
       <div className="flex items-center justify-between">
@@ -64,7 +64,19 @@ export function Header() {
           </div>
         </Link>
         <div className="flex items-center gap-x-4">
-          <AccountDropdown />
+          {session.data && <AccountDropdown />}
+          {!session.data && (
+            <Button
+              onClick={() =>
+                signIn("google", {
+                  callbackUrl: "/",
+                })
+              }
+            >
+              <LogInIcon className="mr-2" />
+              Sign In
+            </Button>
+          )}
           <ModeToggle />
         </div>
       </div>
