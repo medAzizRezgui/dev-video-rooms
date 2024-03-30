@@ -46,7 +46,7 @@ export default function CreateRoomForm() {
      * ! SERVER ACTION :D
      */
     CreateRoomAction(values).then(() => {
-      router.push("/");
+      router.push("/browse");
     });
   }
   return (

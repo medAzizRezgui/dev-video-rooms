@@ -12,5 +12,5 @@ export async function CreateRoomAction(roomData: Omit<Room, "userId" | "id">) {
     throw new Error("not logged in");
   }
   await db.insert(room).values({ ...roomData, userId: session.user.id });
-  revalidatePath("/");
+  revalidatePath("/browse");
 }

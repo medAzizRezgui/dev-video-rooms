@@ -11,7 +11,7 @@ function TagsList({ tags }: { tags: string[] }) {
       {tags.map((tag) => (
         <button
           key={tag}
-          onClick={() => router.push(`/?search=${tag}`)}
+          onClick={() => router.push(`/browse?search=${tag}`)}
           className={cn(badgeVariants())}
           tabIndex={0}
         >

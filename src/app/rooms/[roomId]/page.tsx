@@ -1,4 +1,5 @@
 import { GithubIcon } from "lucide-react";
+import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 
 import { TagsList } from "@/components/shared/TagsList";
@@ -9,6 +10,7 @@ import { DevRoomsVideo } from "./video-player";
 
 export default async function RoomPage(props: { params: { roomId: string } }) {
   const roomId = props.params.roomId;
+  unstable_noStore();
   const room = await getRoom(roomId);
   if (!room) {
     throw new Error("Room not found");
