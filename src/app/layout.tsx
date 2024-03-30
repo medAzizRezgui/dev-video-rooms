@@ -14,6 +14,8 @@ export const metadata: Metadata = {
 };
 import NextTopLoader from "nextjs-toploader";
 
+import { Toaster } from "@/components/ui/toaster";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,6 +27,7 @@ export default function RootLayout({
         <Providers>
           <NextTopLoader />
           <Header />
+          <Toaster />
           {children}
         </Providers>
       </body>

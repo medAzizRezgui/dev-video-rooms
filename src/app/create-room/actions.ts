@@ -11,6 +11,6 @@ export async function CreateRoomAction(roomData: Omit<Room, "userId" | "id">) {
   if (!session) {
     throw new Error("not logged in");
   }
-  await createRoom(roomData, session.user.id);
   revalidatePath("/browse");
+  return await createRoom(roomData, session.user.id);
 }
