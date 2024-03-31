@@ -1,4 +1,5 @@
 import { unstable_noStore } from "next/cache";
+import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,18 @@ export default async function Home({
           <RoomCard key={room.id} room={room} />
         ))}
       </div>
+      {rooms.length === 0 && (
+        <div className="w-full h-[50vh] flex flex-col items-center justify-center">
+          <Image
+            src="/not-found.svg"
+            className="w-[200px] h-[200px]"
+            alt="empty"
+            width={200}
+            height={200}
+          />
+          <h1 className="text-4xl font-bold mt-12">No rooms found</h1>
+        </div>
+      )}
     </main>
   );
 }
